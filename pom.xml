@@ -94,30 +94,26 @@
 			</plugin>
 
 			<plugin>
-            <groupId>org.jacoco</groupId>
-            <artifactId>jacoco-maven-plugin</artifactId>
-            <version>0.8.7</version>
-            <executions>
-                <execution>
-                    <goals>
-                        <goal>prepare-agent</goal>
-                    </goals>
-                </execution>
-                <execution>
-                    <goals>
-                        <goal>report</goal>
-                    </goals>
-                    <phase>verify</phase>
-                </execution>
-                <execution>
-                    <goals>
-                        <goal>report-aggregate</goal>
-                    </goals>
-                    <phase>verify</phase>
-                </execution>
-            </executions>
-        </plugin>
-
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <executions>
+            <execution>
+                <id>default</id>
+                <goals>
+                    <goal>prepare-agent</goal>
+                    <goal>report</goal>
+                </goals>
+            </execution>
+            <!-- Another execution with the same id "default" -->
+            <execution>
+                <id>default</id>
+                <goals>
+                    <goal>prepare-agent</goal>
+                    <goal>report</goal>
+                </goals>
+            </execution>
+        </executions>
+    </plugin>
 		</plugins>
 	</build>
 

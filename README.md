@@ -44,6 +44,55 @@ This web application displays lists of board games and their reviews. While anyo
 
 ## How to Run
 
+''' pipeline {
+    agent any
+    
+    tools {
+        maven 'M3'
+    }
+    
+    environment {
+        SCANNER_HOME = tool 'sonar-scanner'
+    }
+    
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/amoghazy/techgame'
+            }
+        }
+        
+      stage('Compile') {
+            steps {
+               sh "mvn clean compile"
+            }
+        }
+        
+        stage('Test cases') {
+            steps {
+               sh "mvn test"
+            }
+        }
+        
+
+        
+        stage('SonarQube Analysis') {
+           steps {
+                  withSonarQubeEnv('sonar-server') {
+        
+               sh ''' $SCANNER_HOME/bin/sonar-scanner  -Dsonar.projectName=techgame \
+                    -Dsonar.java.binaries=. \
+                    -Dsonar.projectKey=techgame \
+                    -Dsonar.jacoco.reportPath=target/jacoco.exec  \
+                   
+                    '''
+          }
+            }
+        }
+        
+      
+    }} '''
+
 1. Clone the repository
 2. Open the project in your IDE of choice
 3. Run the application

@@ -105,14 +105,22 @@
             </goals>
         </execution>
         <execution>
-            <id>jacoco-site</id>
-            <phase>package</phase>
+            <id>jacoco-report</id>
+            <phase>verify</phase>
             <goals>
                 <goal>report</goal>
             </goals>
         </execution>
+        <execution>
+            <id>jacoco-xml</id>
+            <phase>verify</phase>
+            <goals>
+                <goal>report-aggregate</goal>
+            </goals>
+        </execution>
     </executions>
 </plugin>
+
 		</plugins>
 	</build>
 

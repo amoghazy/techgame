@@ -98,7 +98,7 @@
         <artifactId>jacoco-maven-plugin</artifactId>
         <executions>
             <execution>
-                <id>default</id>
+                <id>default0</id>
                 <goals>
                     <goal>prepare-agent</goal>
                     <goal>report</goal>
@@ -106,7 +106,7 @@
             </execution>
             <!-- Another execution with the same id "default" -->
             <execution>
-                <id>default</id>
+                <id>default1</id>
                 <goals>
                     <goal>prepare-agent</goal>
                     <goal>report</goal>

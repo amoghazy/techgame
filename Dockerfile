@@ -1,4 +1,4 @@
-FROM adoptopenjdk/openjdk11
+FROM chainguard/jdk:latest
     
 EXPOSE 8080
  

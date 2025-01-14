@@ -1,27 +1,47 @@
-pipeline {    
-    agent any 
-    tools {
-        jdk 'jdk17'
-        maven 'maven3'
-    }
+pipeline { agent any
 
-    stages {   
-        stage('Compile') {
-            steps {
-                sh 'mvn compile'
-            }
-        }
-        
-        stage('Test') {
-            steps {
-                sh 'mvn test'
-            }
-        }
-        
-        stage('Build') {
-            steps {
-                sh 'mvn package'
-            }
+tools {
+    maven 'M3'
+}
+
+environment {
+    SCANNER_HOME = tool 'sonar-scanner'
+}
+
+stages {
+    stage('Checkout') {
+        steps {
+            git branch: 'main', url: 'https://github.com/amoghazy/techgame'
         }
     }
-}
+    
+  stage('Compile') {
+        steps {
+           sh "mvn clean compile"
+        }
+    }
+    
+    stage('Test cases') {
+        steps {
+           sh "mvn test"
+        }
+    }
+    
+
+    
+    stage('SonarQube Analysis') {
+       steps {
+              withSonarQubeEnv('sonar-server') {
+    
+           sh ''' $SCANNER_HOME/bin/sonar-scanner  -Dsonar.projectName=techgame \
+                -Dsonar.java.binaries=. \
+                -Dsonar.projectKey=techgame \
+                -Dsonar.jacoco.reportPath=target/jacoco.exec  \
+               
+                '''
+      }
+        }
+    }
+    
+  
+}}
